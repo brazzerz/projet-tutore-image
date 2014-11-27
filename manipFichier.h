@@ -12,5 +12,11 @@ const int MAX = 150;
 // (vous devez utiliser ces sous-programmes, mais pas les modifier)
 void loadPicture(string picture, int red[][MAX], int green[][MAX], int blue[][MAX], int & taille);
 void writePicture(const int red[][MAX], const int  green[][MAX], const int  blue[][MAX], int taille, string name);
+//Procédure inversant l'image en fesant une sysmétrie verticale (SALVATO Lucas)
+void inversevert(int red[][MAX],int green[][MAX],int blue[][MAX],int taille);
+//Procédure inversant l'image en fesant une symétrie horizontale (SALVATO Lucas)
+void inversehor(int red[][MAX],int green[][MAX],int blue[][MAX],int taille);
+//Procédure pour mettre une image en noir et blanc (SALVATO Lucas)
+void binarisation (int red[][MAX],int green[][MAX],int blue[][MAX],int taille);
 
 #endif
