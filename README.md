@@ -5,11 +5,11 @@ Ceci est programme en C++ permettant traiter des images au format ppm. Il a ét�
 
 ===================
 Ce programme permet de :
-* Chercher la présence de la couleur rouge dans l'image.
-* Retirer la couleur rouge de l'image si elle est présente.
+* Chercher la présence de la couleur rouge dans l'image.(Ludovic)
+* Retirer la couleur rouge de l'image si elle est présente.(Ludovic)
 * Négatif.
-* Noir et blanc.
+* Noir et blanc.(Lucas)Fait
 * Luminosité.
-* Symétrie vertical et horizontal.
-* Rotation à 90°.
-* Flou.
+* Symétrie vertical et horizontal.(Lucas)Fait
+* Rotation à 90°.(Arnaud)
+* Flou.(Shuishan)
