@@ -216,7 +216,9 @@ void writePicture(const int red[][MAX], const int green[][MAX], const int blue[]
         cout << "L'image " << name << " a bien ete cree sur votre disque. " << endl;
     }
 }
+
 //Réaliser par SALVATO Lucas
+//Inverser l'image en fonction d'un axe vertical
 void inversevert(int red[][MAX],int green[][MAX],int blue[][MAX],int taille){
     //Compteur inverse
     int cpt=taille-1;
@@ -244,10 +246,13 @@ void inversevert(int red[][MAX],int green[][MAX],int blue[][MAX],int taille){
         //Relance du compteur
         cpt=taille-1;
     }
+    //Sauvegarde du résultat
     string name="XX-symetrieVerticale.ppm";
     writePicture(red,green,blue,taille,name);
 }
+
 //Réaliser par SALVATO Lucas
+//Inverser l'image en fonction d'un axe horizontale
 void inversehor(int red[][MAX],int green[][MAX],int blue[][MAX],int taille){
     //Compteur inverse
     int cpt=taille-1;
@@ -275,6 +280,40 @@ void inversehor(int red[][MAX],int green[][MAX],int blue[][MAX],int taille){
         //Relance du compteur
         cpt=taille-1;
     }
+    //Sauvegarde du résultat
     string name="XX-symetrieHorizontale.ppm";
+    writePicture(red,green,blue,taille,name);
+}
+
+//Réalisé par SALVATO Lucas
+//Mettre l'image en Noir et Blanc
+void binarisation (int red[][MAX],int green[][MAX],int blue[][MAX],int taille){
+    int seuil;
+    //Boucle du choix du seuil
+    do{
+        //Choix du seuil et relance de la boucle
+        cout<<"Choisissez un seuil entre 0 et 765 (seuil recommandé 382)"<<endl;
+        cin>>seuil;
+    }while(seuil<0 || seuil>765);
+    //Boucle pour parcourir les lignes
+    for(int i=0;i<taille;i++){
+        //Boucle pour parcourir les colonnes
+        for(int j=0;j<taille;j++){
+            //Test pour déterminer si le pixel est noir
+            if((red[i][j]+green[i][j]+blue[i][j])<seuil){
+                red[i][j]=0;
+                green[i][j]=0;
+                blue[i][j]=0;
+            }
+            //Ou blanc
+            else{
+                red[i][j]=255;
+                green[i][j]=255;
+                blue[i][j]=255;
+            }
+        }
+    }
+    //Sauvegarde du résultat
+    string name="XX-noiretblanc.ppm";
     writePicture(red,green,blue,taille,name);
 }
