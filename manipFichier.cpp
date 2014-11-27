@@ -5,13 +5,13 @@
 Definitions des fonctions de lecture et d'ecriture
 ======================================================================================================
 
-Un fichier .ppm peut être ouvert soit par un éditeur de texte, soit par un visionneur (gimp par exemple).
+Un fichier .ppm peut Ãªtre ouvert soit par un Ã©diteur de texte, soit par un visionneur (gimp par exemple).
 Il est de la forme suivante :
 P3 (ou P6) : format : P3 indique un codage en ASCII
 longueur
 largeur
 max : valeur du pixel maximal (255)
-données de l'image : chaque pixel est donné de la forme suivante R G B
+donnÃ©es de l'image : chaque pixel est donnÃ© de la forme suivante R G B
 
 par exemple :
 P3
@@ -21,37 +21,37 @@ P3
 255 0 0   100 125 120
 0 0 255   255 255 0
 
-Un fichier au format ppm contient donc des entiers séparés soit par ' ' ou bien \n ou bien \t
+Un fichier au format ppm contient donc des entiers sÃ©parÃ©s soit par ' ' ou bien \n ou bien \t
 */
 
 
 // loadPicture : prend le nom d'un fichier contenant une image au format ppm,
-// remplit 3 tableaux 2D avec les données de cette image, et renvoie la taille
+// remplit 3 tableaux 2D avec les donnÃ©es de cette image, et renvoie la taille
 // effective de ces tableaux (identique pour les 3 tableaux).
-// paramètres (D) image : chaîne de caractères
+// paramÃ¨tres (D) image : chaÃ®ne de caractÃ¨res
 //  	      (R) tabR, tabB, tabG : tableaux [0,MAX-1][0,MAX-1] d'entiers
 //	      (R) taille : entier;
 void loadPicture(string picture, int red[][MAX], int green[][MAX], int blue[][MAX], int & taille)
 {
-    // Déclaration des variables
-    string line; // pour récupérer les lignes du fichier image au format .ppm, qui est codé en ASCII.
-    string format; //pour récupérer le format de l'image : celui-ci doit être de la forme P3
-    string name; // au cas où l'utilisateur se trompe dans le nom de l'image à charger, on redemande le nom.
-    // Allocation dynamique du tableau mypixels, vous verrez ces notions plus tard dans l'année
-    // on procède de cette manière pour des raisons de mémoire (vous verrez toutes ces notions plus tard dans l'année)
-    int *mypixels = new int[3*MAX*MAX]; // pour récupérer les données du fichier de manière linéaire. On répartira ensuite ces données dans les tableaux correspondants
-    ifstream in; // Déclaration d'un "flux" qui permettra ensuite de lire les données de l'image.
-    streambuf* oldbuf; // déclaration d'un "buffer" qui permettra de rediriger les entrées standard (cin) sur le fichier image portant le nom picture
-    int hauteur; // pour bien vérifier que l'image est carrée, et de taille respectant les conditions fixées par l'énoncé
+    // DÃ©claration des variables
+    string line; // pour rÃ©cupÃ©rer les lignes du fichier image au format .ppm, qui est codÃ© en ASCII.
+    string format; //pour rÃ©cupÃ©rer le format de l'image : celui-ci doit Ãªtre de la forme P3
+    string name; // au cas oÃ¹ l'utilisateur se trompe dans le nom de l'image Ã  charger, on redemande le nom.
+    // Allocation dynamique du tableau mypixels, vous verrez ces notions plus tard dans l'annÃ©e
+    // on procÃ¨de de cette maniÃ¨re pour des raisons de mÃ©moire (vous verrez toutes ces notions plus tard dans l'annÃ©e)
+    int *mypixels = new int[3*MAX*MAX]; // pour rÃ©cupÃ©rer les donnÃ©es du fichier de maniÃ¨re linÃ©aire. On rÃ©partira ensuite ces donnÃ©es dans les tableaux correspondants
+    ifstream in; // DÃ©claration d'un "flux" qui permettra ensuite de lire les donnÃ©es de l'image.
+    streambuf* oldbuf; // dÃ©claration d'un "buffer" qui permettra de rediriger les entrÃ©es standard (cin) sur le fichier image portant le nom picture
+    int hauteur; // pour bien vÃ©rifier que l'image est carrÃ©e, et de taille respectant les conditions fixÃ©es par l'Ã©noncÃ©
     // Initialisation des variables
     name = picture;
-    // Permet d'ouvrir le fichier portant le nom picture et de rediriger l'entrée standard sur le fichier portant le nom picture :
+    // Permet d'ouvrir le fichier portant le nom picture et de rediriger l'entrÃ©e standard sur le fichier portant le nom picture :
     // ouverture du fichier portant le nom picture
     in.open(name.c_str( ));
-    // redirection de l'entrée standard (cin) vers le fichier image.
+    // redirection de l'entrÃ©e standard (cin) vers le fichier image.
     oldbuf = cin.rdbuf(in.rdbuf());
 
-    // On vérifie que le fichier a bien été ouvert. Si ça n'est pas le cas, on redemande un nom de fichier valide
+    // On vÃ©rifie que le fichier a bien Ã©tÃ© ouvert. Si Ã§a n'est pas le cas, on redemande un nom de fichier valide
     while (!in)
     {
         cin.rdbuf(oldbuf);
@@ -62,10 +62,10 @@ void loadPicture(string picture, int red[][MAX], int green[][MAX], int blue[][MA
         oldbuf = cin.rdbuf(in.rdbuf());
     }
 
-    // Lecture du nombre définissant le format (ici P3)
+    // Lecture du nombre dÃ©finissant le format (ici P3)
     //getline(cin, format);
     cin >> format;
-    // on finit de lire la ligne (caractère d'espacement)
+    // on finit de lire la ligne (caractÃ¨re d'espacement)
     getline(cin, line);
 
     // Lecture du commentaire
@@ -73,10 +73,10 @@ void loadPicture(string picture, int red[][MAX], int green[][MAX], int blue[][MA
 
     //lecture des dimensions
     cin >> taille >> hauteur;
-    getline(cin, line); // on finit de lire la ligne (caractère d'espacement)
+    getline(cin, line); // on finit de lire la ligne (caractÃ¨re d'espacement)
 
-    // On vérifie que l'image a une taille qui vérifie bien les conditions requises par l'énoncé.
-    // Si ça n'est pas le cas, on redemande un fichier valide, et ce, tant que necessaire.
+    // On vÃ©rifie que l'image a une taille qui vÃ©rifie bien les conditions requises par l'Ã©noncÃ©.
+    // Si Ã§a n'est pas le cas, on redemande un fichier valide, et ce, tant que necessaire.
     while (taille != hauteur || taille > MAX || format != "P3")
     {
         if (format != "P3")
@@ -103,40 +103,40 @@ void loadPicture(string picture, int red[][MAX], int green[][MAX], int blue[][MA
             oldbuf = cin.rdbuf(in.rdbuf());
         }while(!in);
 
-         // Lecture du nombre définissant le format (ici P3)
+         // Lecture du nombre dÃ©finissant le format (ici P3)
        // getline(cin, format);
          cin >> format;
-         getline(cin, line); // on finit de lire la ligne (caractère d'espacement)
+         getline(cin, line); // on finit de lire la ligne (caractÃ¨re d'espacement)
 
         // Lecture du commentaire
         getline(cin, line);
 
         //lecture des dimensions
         cin >> taille >> hauteur; // relance
-        getline(cin, line); // on finit de lire la ligne (caractère d'espacement)
+        getline(cin, line); // on finit de lire la ligne (caractÃ¨re d'espacement)
     }
 
     //Lecture de la valeur max
     getline(cin, line);
 
-    //Lecture des donnees et écriture dans les tableaux :
-    // Pour plus de simplicité, on stocke d'abord toutes les données dans mypixels
-    // dans l'ordre de lecture puis ensuite on les répartira dans les différents tableaux.
-    //Les données stockées dans mypixels sont de la forme RGB RGB RGB ....
-    // Il faudra donc répartir les valeurs R correspondant à la composante rouge de l'image
-    // dans le tableau red, de même pour G et B.
+    //Lecture des donnees et Ã©criture dans les tableaux :
+    // Pour plus de simplicitÃ©, on stocke d'abord toutes les donnÃ©es dans mypixels
+    // dans l'ordre de lecture puis ensuite on les rÃ©partira dans les diffÃ©rents tableaux.
+    //Les donnÃ©es stockÃ©es dans mypixels sont de la forme RGB RGB RGB ....
+    // Il faudra donc rÃ©partir les valeurs R correspondant Ã  la composante rouge de l'image
+    // dans le tableau red, de mÃªme pour G et B.
 
     for (int i = 0; i < 3*taille*taille; i++)
     {
         cin >> mypixels[i];
     }
 
-    // Remplissage des 3 tableaux : on répartit maintenant les valeurs dans les bonnes composantes
-    // Comme dans mypixels, les données sont stockées de la manière suivante : RGB RGB RGB, il faut mettre
-    // les valeurs correspondant à la composante rouge dans red, ...
+    // Remplissage des 3 tableaux : on rÃ©partit maintenant les valeurs dans les bonnes composantes
+    // Comme dans mypixels, les donnÃ©es sont stockÃ©es de la maniÃ¨re suivante : RGB RGB RGB, il faut mettre
+    // les valeurs correspondant Ã  la composante rouge dans red, ...
     // Ainsi, les valeurs de la composante rouge correspondent aux valeurs stockes aux indices
-    // congrus à 0 mod 3 dans mypixels, que les valeurs de la composante verte correspond aux valeurs
-    // stockes aux indices sont congrus à 1 mod 3, ...
+    // congrus Ã  0 mod 3 dans mypixels, que les valeurs de la composante verte correspond aux valeurs
+    // stockes aux indices sont congrus Ã  1 mod 3, ...
     for (int i = 0; i < taille; i++)
     {
         for (int j = 0; j < taille; j++)
@@ -147,38 +147,38 @@ void loadPicture(string picture, int red[][MAX], int green[][MAX], int blue[][MA
         }
     }
 
-    // Informations à l'utilisateur pour dire que tout s'est bien passé
+    // Informations Ã  l'utilisateur pour dire que tout s'est bien passÃ©
     cout << " L'image " << name << " a bien ete chargee dans les tableaux ." << endl;
 
-    // On libère la mémoire que l'on avait attribué à mypixels : vous verrez ces notions plus tard dans l'année
+    // On libÃ¨re la mÃ©moire que l'on avait attribuÃ© Ã  mypixels : vous verrez ces notions plus tard dans l'annÃ©e
     delete mypixels;
     // On ferme le fichier que l'on vient de lire
     in.close();
-    // On remet à nouveau l'entrée standard sur la console
+    // On remet Ã  nouveau l'entrÃ©e standard sur la console
     cin.rdbuf(oldbuf);
 }
 
 // writePicture : prend 3 tableaux 2D, leur taille effective (identique pour les 3),
-// crée une image au format ppm à partir des données de ces tableaux, et l’enregistre
+// crÃ©e une image au format ppm Ã  partir des donnÃ©es de ces tableaux, et lâ€™enregistre
 // dans un fichier.
-// paramètres (D) tabR, tabB, tabG : tableaux [0,MAX-1][0,MAX-1] d’entiers
+// paramÃ¨tres (D) tabR, tabB, tabG : tableaux [0,MAX-1][0,MAX-1] dâ€™entiers
 //		 (D) taille : entier
-//		 (D) image : chaîne de caractères
+//		 (D) image : chaÃ®ne de caractÃ¨res
 void writePicture(const int red[][MAX], const int green[][MAX], const int blue[][MAX], int taille, string name)
 {
-    // Déclaration des variables
+    // DÃ©claration des variables
     ofstream out;
     streambuf* oldbuf;
 
     // Initialisation des variables
     /*On redirige la sortie standard sur le fichier portant le nom name.
-    De cette manière, lorsque l'on fera appel à cout, la sortie sera écrite dans le fichier portant le nom name et non pas sur la console */
-    // ouverture (voire création) du fichier portant le nom name pour écrire les données
+    De cette maniÃ¨re, lorsque l'on fera appel Ã  cout, la sortie sera Ã©crite dans le fichier portant le nom name et non pas sur la console */
+    // ouverture (voire crÃ©ation) du fichier portant le nom name pour Ã©crire les donnÃ©es
     out.open(name.c_str( ));
     // redirection de la sortie standard (cout) vers le fichier image.
     oldbuf = std::cout.rdbuf(out.rdbuf());
 
-    // On vérifie que le fichier a bien été crée
+    // On vÃ©rifie que le fichier a bien Ã©tÃ© crÃ©e
     if (!out)
     {
         cerr << "Impossible de creer le fichier " << name << " ! " << endl;
@@ -186,8 +186,8 @@ void writePicture(const int red[][MAX], const int green[][MAX], const int blue[]
 
     else
     {
-        // Créer le format, la largeur (les paramètres qui ne sont pas dans le tableau
-        // Ecriture du nombre définissant le format. On n'utilise que le codage ASCII
+        // CrÃ©er le format, la largeur (les paramÃ¨tres qui ne sont pas dans le tableau
+        // Ecriture du nombre dÃ©finissant le format. On n'utilise que le codage ASCII
         cout << "P3" << endl;
         // Ecriture d'un commentaire (pour calquer au format de Gimp)
         cout << "# Created by IUT d'Informatique d'Orsay Team" << endl;
@@ -196,7 +196,7 @@ void writePicture(const int red[][MAX], const int green[][MAX], const int blue[]
         // Ecriture de la valeur maximale : cette valeur vaut toujours 255 avec le codage RGB
         cout << 255 << endl;
 
-        // Ecriture des données, qui se trouvent dans les tableaux fournis par l'utilisateur
+        // Ecriture des donnÃ©es, qui se trouvent dans les tableaux fournis par l'utilisateur
         for (int i = 0; i < taille; i++)
         {
             for (int j = 0; j < taille; j++)
@@ -212,7 +212,107 @@ void writePicture(const int red[][MAX], const int green[][MAX], const int blue[]
         // Redirection de la sortie standard sur la console
         cout.rdbuf(oldbuf);
 
-        // Informations à l'utilisateur pour dire que tout s'est déroulé correctement
+        // Informations Ã  l'utilisateur pour dire que tout s'est dÃ©roulÃ© correctement
         cout << "L'image " << name << " a bien ete cree sur votre disque. " << endl;
     }
+}
+//RÃ©aliser par SALVATO Lucas
+//Inverser l'image en fonction d'un axe vertical
+void inversevert(int red[][MAX],int green[][MAX],int blue[][MAX],int taille){
+    //Compteur inverse
+    int cpt=taille-1;
+    //Variable temporaire
+    int temp;
+    //Boucle parcourant les lignes
+    for(int i=0;i<taille;i++){
+        //Boucle parcourant les colonnes
+        for(int j=0;j<=taille/2;j++){
+            //Inversion de la derniÃ¨re colonne et premiÃ¨re colonne des couleurs rouges
+            temp=red[i][j];
+            red[i][j]=red[i][cpt];
+            red[i][cpt]=temp;
+            //Inversion de la derniÃ¨re colonne et premiÃ¨re colonne des couleurs vertes
+            temp=green[i][j];
+            green[i][j]=green[i][cpt];
+            green[i][cpt]=temp;
+            //Inversion de la derniÃ¨re colonne et premiÃ¨re colonne des couleurs bleues
+            temp=blue[i][j];
+            blue[i][j]=blue[i][cpt];
+            blue[i][cpt]=temp;
+            //Diminution du compteur
+            cpt--;
+        }
+        //Relance du compteur
+        cpt=taille-1;
+    }
+    //Sauvegarde du rÃ©sultat
+    string name="XX-symetrieVerticale.ppm";
+    writePicture(red,green,blue,taille,name);
+}
+
+//RÃ©aliser par SALVATO Lucas
+//Inverser l'image en fonction d'un axe horizontale
+void inversehor(int red[][MAX],int green[][MAX],int blue[][MAX],int taille){
+    //Compteur inverse
+    int cpt=taille-1;
+    //Variable temporaire
+    int temp;
+    //Boucle parcourant les lignes
+    for(int j=0;j<taille;j++){
+        //Boucle parcourant les colonnes
+        for(int i=0;i<=taille/2;i++){
+            //Inversion de la derniÃ¨re ligne et premiÃ¨re ligne des couleurs rouges
+            temp=red[i][j];
+            red[i][j]=red[cpt][j];
+            red[cpt][j]=temp;
+            //Inversion de la derniÃ¨re ligne et premiÃ¨re ligne des couleurs vertes
+            temp=green[i][j];
+            green[i][j]=green[cpt][j];
+            green[cpt][j]=temp;
+            //Inversion de la derniÃ¨re ligne et premiÃ¨re ligne des couleurs bleues
+            temp=blue[i][j];
+            blue[i][j]=blue[cpt][j];
+            blue[cpt][j]=temp;
+            //Diminution du compteur inverse
+            cpt--;
+        }
+        //Relance du compteur
+        cpt=taille-1;
+    }
+    //Sauvegarde du rÃ©sultat
+    string name="XX-symetrieHorizontale.ppm";
+    writePicture(red,green,blue,taille,name);
+}
+
+//RÃ©alisÃ© par SALVATO Lucas
+//Mettre l'image en Noir et Blanc
+void binarisation (int red[][MAX],int green[][MAX],int blue[][MAX],int taille){
+    int seuil;
+    //Boucle du choix du seuil
+    do{
+        //Choix du seuil et relance de la boucle
+        cout<<"Choisissez un seuil entre 0 et 765 (seuil recommandÃ© 382)"<<endl;
+        cin>>seuil;
+    }while(seuil<0 || seuil>765);
+    //Boucle pour parcourir les lignes
+    for(int i=0;i<taille;i++){
+        //Boucle pour parcourir les colonnes
+        for(int j=0;j<taille;j++){
+            //Test pour dÃ©terminer si le pixel est noir
+            if((red[i][j]+green[i][j]+blue[i][j])<seuil){
+                red[i][j]=0;
+                green[i][j]=0;
+                blue[i][j]=0;
+            }
+            //Ou blanc
+            else{
+                red[i][j]=255;
+                green[i][j]=255;
+                blue[i][j]=255;
+            }
+        }
+    }
+    //Sauvegarde du rÃ©sultat
+    string name="XX-noiretblanc.ppm";
+    writePicture(red,green,blue,taille,name);
 }
