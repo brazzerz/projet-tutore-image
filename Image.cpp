@@ -117,3 +117,15 @@ void Image::negatif(){
         }
     }
 }
+
+//Réalisé par SALVATO Lucas (Bonus)
+//Méthode pour faire une symétrie en fonction de l'axecentrale
+void Image::symetriecentrale(){
+    for(int i=0;i<taille_;i++){
+        for(int j=0;j<taille_/2;j++){
+            red_[i][j]=red_[i][taille_-j];
+            green_[i][j]=green_[i][taille_-j];
+            blue_[i][j]=blue_[i][taille_-j];
+        }
+    }
+}
