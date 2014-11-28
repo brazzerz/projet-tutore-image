@@ -102,3 +102,18 @@ void Image::inversehor(){
         cpt=taille_-1;
     }
 }
+
+//Réalisé par SALVATO Lucas
+//Méthode pour rendre une photo négatif
+void Image::negatif(){
+    //Parcours des lignes
+    for(int i=0;i<taille_;i++){
+        //Parcour des colonnes
+        for(int j=0;j<taille_;j++){
+            //transformation négatif
+            red_[i][j]=255-red_[i][j];
+            green_[i][j]=255-green_[i][j];
+            blue_[i][j]=255-blue_[i][j];
+        }
+    }
+}
