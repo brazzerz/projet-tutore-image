@@ -13,3 +13,4 @@ Ce programme permet de :
 * Symétrie vertical et horizontal.(Lucas)Fait
 * Rotation à 90°.(Arnaud)
 * Flou.(Shuishan)
+* Symétrie centrale et verticale (Lucas)(Bonus)
