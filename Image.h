@@ -14,5 +14,6 @@ public:
 	void inversevert();
 	void inversehor();
 	void binarisation();
+	void negatif();
 	void write(string output);
 };
