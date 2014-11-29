@@ -6,6 +6,11 @@ Image::Image(string input){
 	loadPicture(input,red_,green_,blue_,taille_); // On utilise la procédure pour charger l'image en tant que constructeur.
 }
 
+void Image::write(string output){ // Ecriture du fichier.
+    //Sauvegarde du résultat
+    writePicture(red_,green_,blue_,taille_,output);
+}
+
 //Réaliser par SALVATO Lucas
 //Inverser l'image en fonction d'un axe vertical
 void Image::inversevert(){
@@ -35,11 +40,6 @@ void Image::inversevert(){
         //Relance du compteur
         cpt=taille_-1;
     }
-}
-
-void Image::write(string output){ // Ecriture du fichier.
-	//Sauvegarde du résultat
-    writePicture(red_,green_,blue_,taille_,output);
 }
 
 //Réalisé par SALVATO Lucas
@@ -126,6 +126,30 @@ void Image::symetriecentrale(){
             red_[i][j]=red_[i][taille_-j];
             green_[i][j]=green_[i][taille_-j];
             blue_[i][j]=blue_[i][taille_-j];
+        }
+    }
+}
+
+
+// Réalisé par NGUYEN Duc
+// Rotation à 90°
+void Image::rotation(){
+    int tmpred;
+    int tmpgreen;
+    int tmpblue;
+    for (int i = 0; i < taille_; ++i)
+    {
+        for (int j = 0; j < taille_/2; ++j)
+        {
+            tmpred = red_[i][j]; // On sauvegarde le pixel présent à l'emplacement ij
+            red_[i][j] = red_[j][i]; // On remplace le pixel ij par le pixel ji.
+            red_[j][i] = tmpred; // On remplace le pixel ji par le pixel ij.
+            tmpgreen = green_[i][j];
+            green_[i][j] = green_[j][i];
+            green_[j][i] = tmpgreen;
+            tmpblue = blue_[i][j];
+            blue_[i][j] = blue_[j][i];
+            blue_[j][i] = tmpblue;
         }
     }
 }
