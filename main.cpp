@@ -1,56 +1,33 @@
 #include <iostream>
 #include <cstdlib>
+#include "Image.h"
 
 using namespace std;
 
 int main(int argc, char const *argv[])
 {
-	if (argc>1) // On regarde si des arguments ont été spécifié.
-	{
-		string choix = argv[1];
-		if (choix == "--rouge") // On lance la fonction correspondante en fonction de l'argument.
-		{
-			cout<<"Cherche la présence de la couleur rouge dans l'image spécifié en argument."<<endl;
-			// À l'avenir on appellera la fonction en question comme ceci : rouge(argv[2]).
-		}
-		else if (choix == "--rmrouge")
-		{
-			cout<<"Supprime la couleur rouge de l'image spécifié en argument."<<endl;
-		}
-		else if (choix == "--negatif")
-		{
-			cout<<"Créer un négatif de l'image spécifié en argument."<<endl;
-		}
-		else if (choix == "--nb")
-		{
-			cout<<"Créer un noir et blanc de l'image spécifié en argument."<<endl;
-		}
-		else if (choix == "--luminosite")
-		{
-			cout<<"Modifie la luminosité de l'image spécifié en argument."<<endl;
-		}
-		else if (choix == "--symetrie")
-		{
-			cout<<"Créer un symétrique vertical ou horizontal de l'image spécifié en argument."<<endl;
-		}
-		else if (choix == "--rotation")
-		{
-			cout<<"Effectue une rotation à 90° de l'image spécifié en argument."<<endl;
-		}
-		else if (choix == "--flou")
-		{
-			cout<<"Ajoute du flou à l'image spécifié en argument."<<endl;
-		}
-		else if (choix == "--help") // On affiche un message d'aide.
-		{
-			cout<<"Utilisation : imgsaas <OPTION> <FICHIER>\nOPTIONS :\n\t--rouge\t\tCherche la présence de la couleur rouge dans l'image spécifié en argument.\n\t--rmrouge\tSupprime la couleur rouge de l'image spécifié en argument.\n\t--negatif\tCréer un négatif de l'image spécifié en argument.\n\t--nb\tCréer un noir et blanc de l'image spécifié en argument.\n\t--luminosite\tModifie la luminosité de l'image spécifié en argument.\n\t--symetrie\tCréer un symétrique vertical ou horizontal de l'image spécifié en argument.\n\t--rotation\tEffectue une rotation à 60° de l'image spécifié en argument.\nt\t--flou\tAjoute du flou à l'image spécifié en argument.\n\t--help\tAffiche ce message."<<endl;
-		}
-		else{ // On affiche une erreur.
-			cout<<"Syntaxe erronée.\nTapez --help pour obtenir de l'aide."<<endl;
-		}
-	}
-	else{ // On affiche une erreur.
-		cout<<"Syntaxe erronée.\nTapez --help pour obtenir de l'aide."<<endl;
+	string input;
+	cout<<"Entrez une image en entrée."<<endl;
+	cin>>input;
+	Image image(input);
+	string output;
+	cout<<"Entrez le nom du fichier de sortie"<<endl;
+	cin>>output;
+	int choix;
+	cout<<"1\tPresence rouge\n2\tSupprimer rouge\n3\tNegatif\n4\tNoir et blanc\n5\tLuminosite\n6\tSymetrie vertical\n7\tSymetrie horizontal\n8\tRotation\n9\tFlou\n10\tSymetrie centrale\nChoix : ";
+	cin>>choix;
+	switch(choix){
+		case 1:
+		case 2:
+		case 3: image.negatif();image.write(output);break;
+		case 4: image.binarisation();image.write(output);break;
+		case 5:
+		case 6: image.inversevert();image.write(output);break;
+		case 7: image.inversehor();image.write(output);break;
+		case 8: 
+		case 9:
+		case 10: image.symetriecentrale();image.write(output);break;
+		default: cout<<"Choix invalide."<<endl;break;
 	}
 	return 0;
 }
