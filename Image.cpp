@@ -180,3 +180,29 @@ void Image::rotation90(){
         }
     }
 }
+
+//Réalisé par SALVATO Lucas
+//Méthode de rotation à 270°
+void Image::rotation270(){
+    //On prend des tableau pour stocker les valeurs temporaire
+    int red[MAX][MAX];
+    int green[MAX][MAX];
+    int blue[MAX][MAX];
+    //Parcour des lignes
+    for(int i=0;i<taille_;i++){
+        //Parcour des colonnes
+        for(int j=0;j<taille_;j++){
+            red[j][taille_-i]=red_[i][j];
+            green[j][taille_-i]=green_[i][j];
+            blue[j][taille_-i]=blue_[i][j];
+        }
+    }
+    //On remplis de nouveau les attributs
+    for(int i=0;i<taille_;i++){
+        for(int j=0;j<taille_;j++){
+            red_[i][j]=red[i][j];
+            green_[i][j]=green[i][j];
+            blue_[i][j]=blue[i][j];
+        }
+    }
+}
