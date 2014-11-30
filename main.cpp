@@ -21,10 +21,10 @@ int main(int argc, char const *argv[])
 		case 2:
 		case 3: image.negatif();image.write(output);break;
 		case 4: image.binarisation();image.write(output);break;
-		case 5:
+		case 5:	
 		case 6: image.inversevert();image.write(output);break;
 		case 7: image.inversehor();image.write(output);break;
-		case 8: 
+		case 8: image.rotation90();image.write(output);break;
 		case 9:
 		case 10: image.symetriecentrale();image.write(output);break;
 		default: cout<<"Choix invalide."<<endl;break;
