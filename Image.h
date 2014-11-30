@@ -15,6 +15,8 @@ public:
 	void inversehor();
 	void binarisation();
 	void negatif();
+	void rotation90();
+	void melimelo();//Bonus
 	void symetriecentrale();//Bonus
 	void write(string output);
 };
