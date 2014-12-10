@@ -17,4 +17,5 @@ public:
 	void negatif();
 	void symetriecentrale();//Bonus
 	void write(string output);
+	void rotation();
 };
