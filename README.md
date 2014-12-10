@@ -11,6 +11,8 @@ Ce programme permet de :
 * Noir et blanc.(Lucas)Fait
 * Luminosité.
 * Symétrie vertical et horizontal.(Lucas)Fait
-* Rotation à 90°.(Arnaud)
+* Rotation à 90°.(Arnaud)Fait
 * Flou.(Shuishan)
 * Symétrie centrale et verticale (Lucas)(Bonus)
+* Rotation à 270° (Lucas)(Bonus)
+* Melimelo (Arnaud)(Bonus)

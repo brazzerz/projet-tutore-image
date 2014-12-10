@@ -132,8 +132,8 @@ void Image::symetriecentrale(){
 
 
 // Réalisé par NGUYEN Duc
-// Rotation à 90°
-void Image::rotation(){
+// séparation de l'image en 4 partie et changement de place de celles-ci
+void Image::melimelo(){
     int tmpred;
     int tmpgreen;
     int tmpblue;
@@ -150,6 +150,59 @@ void Image::rotation(){
             tmpblue = blue_[i][j];
             blue_[i][j] = blue_[j][i];
             blue_[j][i] = tmpblue;
+        }
+    }
+}
+
+//Réalisé par NGUYEN Duc
+//Rotation à 90°
+void Image::rotation90(){
+    //On prend des tableaux pour stocker les valeurs temporaire
+    int red[MAX][MAX];
+    int green[MAX][MAX];
+    int blue[MAX][MAX];
+    //Parcour des lignes
+    for(int i=0;i<taille_;i++){
+        //Parcour des colonnes
+        for(int j=0;j<taille_;j++){
+            //On fait la rotation à 90°
+            red[taille_-1-j][i]=red_[i][j];
+            green[taille_-1-j][i]=green_[i][j];
+            blue[taille_-1-j][i]=blue_[i][j];
+        }
+    }
+    //On rempli de nouveau les attributs d'image avec les valeur temporaire
+    for(int i=0;i<taille_;i++){
+        for(int j=0;j<taille_;j++){
+            red_[i][j]=red[i][j];
+            green_[i][j]=green[i][j];
+            blue_[i][j]=blue[i][j];
+        }
+    }
+}
+
+//Réalisé par SALVATO Lucas
+//Méthode de rotation à 270°
+void Image::rotation270(){
+    //On prend des tableau pour stocker les valeurs temporaire
+    int red[MAX][MAX];
+    int green[MAX][MAX];
+    int blue[MAX][MAX];
+    //Parcour des lignes
+    for(int i=0;i<taille_;i++){
+        //Parcour des colonnes
+        for(int j=0;j<taille_;j++){
+            red[j][taille_-i]=red_[i][j];
+            green[j][taille_-i]=green_[i][j];
+            blue[j][taille_-i]=blue_[i][j];
+        }
+    }
+    //On remplis de nouveau les attributs
+    for(int i=0;i<taille_;i++){
+        for(int j=0;j<taille_;j++){
+            red_[i][j]=red[i][j];
+            green_[i][j]=green[i][j];
+            blue_[i][j]=blue[i][j];
         }
     }
 }
