@@ -25,10 +25,13 @@ int main(int argc, char const *argv[])
 		case 6: image.inversevert();image.write(output);break;
 		case 7: image.inversehor();image.write(output);break;
 		case 8: image.rotation90();image.write(output);break;
-		case 9:
+		case 9: image.flou();image.write(output);break;
 		case 10: image.symetriecentrale();image.write(output);break;
 		case 11: image.melimelo();image.write(output);break;
 		case 12: image.rotation270();image.write(output);break;
+		case 13: image.noir();image.write(output);break;
+		case 14: image.filtre3();image.write(output);break;
+		// case 15: image.filtre4();image.write(output);break;
 		default: cout<<"Choix invalide."<<endl;break;
 	}
 	return 0;

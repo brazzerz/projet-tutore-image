@@ -11,6 +11,31 @@ void Image::write(string output){ // Ecriture du fichier.
     writePicture(red_,green_,blue_,taille_,output);
 }
 
+void Image::clone1(){ // Clone l'image chargé dans un tableau alternatif.
+    for (int i = 0; i < taille_; ++i)
+    {
+        for (int j = 0; j < taille_; ++j)
+        {
+            red_1[i][j]=red_[i][j];
+            green_1[i][j]=green_[i][j];
+            blue_1[i][j]=blue_[i][j];
+        }
+    }
+}
+
+void Image::clone2(){ // Clone l'image chargé dans un tableau alternatif.
+    for (int i = 0; i < taille_; ++i)
+    {
+        for (int j = 0; j < taille_; ++j)
+        {
+            red_2[i][j]=red_[i][j];
+            green_2[i][j]=green_[i][j];
+            blue_2[i][j]=blue_[i][j];
+        }
+    }
+    
+}
+
 //Réaliser par SALVATO Lucas
 //Inverser l'image en fonction d'un axe vertical
 void Image::inversevert(){
@@ -206,3 +231,143 @@ void Image::rotation270(){
         }
     }
 }
+
+//Réaltisé par Shuishan WANG
+// Filtre 1, flou.
+void Image::flou()
+{
+    clone1();
+    for(int i = 0 ; i < taille_ ; i++)
+    {
+
+        for(int j = 0 ; j < taille_ ; j++)
+        {
+           if(i == 0 || j == 0 || i == taille_ - 1 || j == taille_ - 1)
+           {
+                red_[i][j] = 0;
+                blue_[i][j] = 0;
+                green_[i][j] = 0;
+
+           }
+           else {
+                int mRouge;
+                int mVert;
+                int mBleu;
+                red_[i][j] = (red_1[i][j] +red_1[i][j-1] +red_1[i][j+1] +red_1[i-1][j] +red_1[i-1][j+1] +red_1[i-1][j-1] +red_1[i+1][j-1] +red_1[i+1][j] +red_1[i+1][j+1])/9;
+
+                green_[i][j] =  (green_1[i][j] +green_1[i][j-1] +green_1[i][j+1] +green_1[i-1][j] +green_1[i-1][j+1] +green_1[i-1][j-1] +green_1[i+1][j-1] +green_1[i+1][j] +green_1[i+1][j+1])/9;
+
+                blue_[i][j] = (blue_1[i][j] +blue_1[i][j-1] +blue_1[i][j+1] +blue_1[i-1][j] +blue_1[i-1][j+1] +blue_1[i-1][j-1] +blue_1[i+1][j-1] +blue_1[i+1][j] +blue_1[i+1][j+1])/9;
+           }
+
+        }
+    }
+}
+
+//Réaltisé par Shuishan WANG
+// Filtre 2, créer un noir ?
+void Image::noir()
+{
+    for(int i = 0 ; i < taille_ ; i++)
+    {
+
+        for(int j = 0 ; j < taille_ ; j++)
+        {
+            if(i == 0 || j == 0 || i == taille_ - 1 || j == taille_ - 1)
+           {
+                red_[i][j] = 0;
+                blue_[i][j] = 0;
+                green_[i][j] = 0;
+
+           }
+           else
+           {
+            red_[i][j] = (red_1[i][j]*0 +red_1[i][j-1]*2 +red_1[i][j+1]*-2 +red_1[i-1][j]*0 +red_1[i-1][j+1]*-1 +red_1[i-1][j-1]*1 +red_1[i+1][j-1]*1 +red_1[i+1][j]*0 +red_1[i+1][j+1]*-1);
+            green_[i][j] = (green_1[i][j]*0 +green_1[i][j-1]*2 +green_1[i][j+1]*-2 +green_1[i-1][j]*0 +green_1[i-1][j+1]*-1 +green_1[i-1][j-1]*1 +green_1[i+1][j-1]*1 +green_1[i+1][j]*0 +green_1[i+1][j+1]*-1);
+            blue_[i][j] = (blue_1[i][j]*0 +blue_1[i][j-1]*2 +blue_1[i][j+1]*-2 +blue_1[i-1][j]*0 +blue_1[i-1][j+1]*-1 +blue_1[i-1][j-1]*1 +blue_1[i+1][j-1]*1 +blue_1[i+1][j]*0 +blue_1[i+1][j+1]*-1);
+            if(red_[i][j] > 255 )red_[i][j] = 255;
+            if (red_[i][j] < 0)red_[i][j] = 0;
+            if(green_[i][j] > 255 )green_[i][j] = 255;
+            if (green_[i][j] < 0)green_[i][j] = 0;
+            if(blue_[i][j] > 255 )blue_[i][j] = 255;
+            if (blue_[i][j] < 0)blue_[i][j] = 0;
+
+           }
+        }
+    }
+}
+
+void Image::filtre3()
+{
+for(int i = 0 ; i < taille_ ; i++)
+    {
+
+        for(int j = 0 ; j < taille_ ; j++)
+        {
+            if(i == 0 || j == 0 || i == taille_ - 1 || j == taille_ - 1)
+           {
+                red_[i][j] = 0;
+                blue_[i][j] = 0;
+                green_[i][j] = 0;
+           }
+           else
+           {
+            red_[i][j] = (red_1[i][j]*0 +red_1[i][j-1]*0 +red_1[i][j+1]*0 +red_1[i-1][j]*2 +red_1[i-1][j+1]*1 +red_1[i-1][j-1]*1 +red_1[i+1][j-1]*-1 +red_1[i+1][j]*-2 +red_1[i+1][j+1]*-1);
+            green_[i][j] = (green_1[i][j]*0 +green_1[i][j-1]*0 +green_1[i][j+1]*0 +green_1[i-1][j]*2 +green_1[i-1][j+1]*1 +green_1[i-1][j-1]*1 +green_1[i+1][j-1]*-1 +green_1[i+1][j]*-2 +green_1[i+1][j+1]*-1);
+            blue_[i][j] = (blue_1[i][j]*0 +blue_1[i][j-1]*0 +blue_1[i][j+1]*0 +blue_1[i-1][j]*2 +blue_1[i-1][j+1]*1 +blue_1[i-1][j-1]*1 +blue_1[i+1][j-1]*-1 +blue_1[i+1][j]*-2 +blue_1[i+1][j+1]*-1);
+            if(red_[i][j] > 255 )red_[i][j] = 255;
+            if (red_[i][j] < 0)red_[i][j] = 0;
+            if(green_[i][j] > 255 )green_[i][j] = 255;
+            if (green_[i][j] < 0)green_[i][j] = 0;
+            if(blue_[i][j] > 255 )blue_[i][j] = 255;
+            if (blue_[i][j] < 0)blue_[i][j] = 0;
+           }
+        }
+    }
+}
+
+// void Image::filtre4()
+// {
+//     for(int i = 0 ; i < taille_ ; i++)
+//     {
+
+//         for(int j = 0 ; j < taille_ ; j++)
+//         {
+//             if(i == 0 || j == 0 || i == taille_ - 1 || j == taille_ - 1)
+//            {
+//                 red_[i][j] = 0;
+//                 blue_[i][j] = 0;
+//                 green_[i][j] = 0;
+
+//            }
+//            else
+//            {
+//             red_[i][j] = (red_2[i][j]*0 +red_2[i][j-1]*0 +red_2[i][j+1]*0 +red_2[i-1][j]*2 +red_2[i-1][j+1]*1 +red_2[i-1][j-1]*1 +red_2[i+1][j-1]*-1 +red_2[i+1][j]*-2 +red_2[i+1][j+1]*-1);
+//             green_[i][j] = (green_2[i][j]*0 +green_2[i][j-1]*0 +green_2[i][j+1]*0 +green_2[i-1][j]*2 +green_2[i-1][j+1]*1 +green_2[i-1][j-1]*1 +green_2[i+1][j-1]*-1 +green_2[i+1][j]*-2 +green_2[i+1][j+1]*-1);
+//             blue_[i][j] = (blue_2[i][j]*0 +blue_2[i][j-1]*0 +blue_2[i][j+1]*0 +blue_2[i-1][j]*2 +blue_2[i-1][j+1]*1 +blue_2[i-1][j-1]*1 +blue_2[i+1][j-1]*-1 +blue_2[i+1][j]*-2 +blue_2[i+1][j+1]*-1);
+//             red_[i][j] = red_[i][j]*red_[i][j];
+//             green_[i][j] = green_[i][j]*green_[i][j];
+//             blue_[i][j] = blue_[i][j]*blue_[i][j];
+
+//              red_1[i][j] = (red_2[i][j]*0 +red_2[i][j-1]*2 +red_2[i][j+1]*-2 +red_2[i-1][j]*0 +red_2[i-1][j+1]*-1 +red_2[i-1][j-1]*1 +red_2[i+1][j-1]*1 +red_2[i+1][j]*0 +red_2[i+1][j+1]*-1);
+//             green_1[i][j] = (green_2[i][j]*0 +green_2[i][j-1]*2 +green_2[i][j+1]*-2 +green_2[i-1][j]*0 +green_2[i-1][j+1]*-1 +green_2[i-1][j-1]*1 +green_2[i+1][j-1]*1 +green_2[i+1][j]*0 +green_2[i+1][j+1]*-1);
+//             blue_1[i][j] = (blue_2[i][j]*0 +blue_2[i][j-1]*2 +blue_2[i][j+1]*-2 +blue_2[i-1][j]*0 +blue_2[i-1][j+1]*-1 +blue_2[i-1][j-1]*1 +blue_2[i+1][j-1]*1 +blue_2[i+1][j]*0 +blue_2[i+1][j+1]*-1);
+//             red_1[i][j] = red_1[i][j]*red_1[i][j];
+//             green_1[i][j] = green_1[i][j]*green_1[i][j];
+//             blue_1[i][j] = blue_1[i][j]*blue_1[i][j];
+
+//             red_[i][j] = sqrt(red_[i][j] + red_1[i][j]);
+//             green_[i][j] = sqrt(green_[i][j] + green_1[i][j]);
+//             blue_[i][j] = sqrt(blue_[i][j] + blue_1[i][j]);
+
+//             if(red_[i][j] > 255 )red_[i][j] = 255;
+//             if (red_[i][j] < 0)red_[i][j] = 0;
+//             if(green_[i][j] > 255 )green_[i][j] = 255;
+//             if (green_[i][j] < 0)green_[i][j] = 0;
+//             if(blue_[i][j] > 255 )blue_[i][j] = 255;
+//             if (blue_[i][j] < 0)blue_[i][j] = 0;
+
+//            }
+//         }
+//     }
+// }
