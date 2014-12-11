@@ -148,7 +148,7 @@ void loadPicture(string picture, int red[][MAX], int green[][MAX], int blue[][MA
     }
 
     // Informations à l'utilisateur pour dire que tout s'est bien passé
-    cout << " L'image " << name << " a bien ete chargee dans les tableaux ." << endl;
+    cout << "L'image " << name << " a bien ete chargee dans les tableaux." << endl;
 
     // On libère la mémoire que l'on avait attribué à mypixels : vous verrez ces notions plus tard dans l'année
     delete mypixels;
