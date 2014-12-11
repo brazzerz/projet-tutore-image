@@ -33,7 +33,7 @@ void Image::clone2(){ // Clone l'image chargé dans un tableau alternatif.
             blue_2[i][j]=blue_[i][j];
         }
     }
-    
+
 }
 
 //Réaliser par SALVATO Lucas
@@ -265,9 +265,10 @@ void Image::flou()
 }
 
 //Réaltisé par Shuishan WANG
-// Filtre 2, créer un noir ?
-void Image::noir()
+// Filtre sobel.
+void Image::sobel1()
 {
+    clone1();
     for(int i = 0 ; i < taille_ ; i++)
     {
 
@@ -297,8 +298,11 @@ void Image::noir()
     }
 }
 
-void Image::filtre3()
+//Réaltisé par Shuishan WANG
+// Filtre sobel.
+void Image::sobel2()
 {
+    clone1();
 for(int i = 0 ; i < taille_ ; i++)
     {
 
@@ -310,8 +314,6 @@ for(int i = 0 ; i < taille_ ; i++)
                 blue_[i][j] = 0;
                 green_[i][j] = 0;
            }
-           else
-           {
             red_[i][j] = (red_1[i][j]*0 +red_1[i][j-1]*0 +red_1[i][j+1]*0 +red_1[i-1][j]*2 +red_1[i-1][j+1]*1 +red_1[i-1][j-1]*1 +red_1[i+1][j-1]*-1 +red_1[i+1][j]*-2 +red_1[i+1][j+1]*-1);
             green_[i][j] = (green_1[i][j]*0 +green_1[i][j-1]*0 +green_1[i][j+1]*0 +green_1[i-1][j]*2 +green_1[i-1][j+1]*1 +green_1[i-1][j-1]*1 +green_1[i+1][j-1]*-1 +green_1[i+1][j]*-2 +green_1[i+1][j+1]*-1);
             blue_[i][j] = (blue_1[i][j]*0 +blue_1[i][j-1]*0 +blue_1[i][j+1]*0 +blue_1[i-1][j]*2 +blue_1[i-1][j+1]*1 +blue_1[i-1][j-1]*1 +blue_1[i+1][j-1]*-1 +blue_1[i+1][j]*-2 +blue_1[i+1][j+1]*-1);
@@ -323,51 +325,54 @@ for(int i = 0 ; i < taille_ ; i++)
             if (blue_[i][j] < 0)blue_[i][j] = 0;
            }
         }
-    }
 }
 
-// void Image::filtre4()
-// {
-//     for(int i = 0 ; i < taille_ ; i++)
-//     {
+//Réaltisé par Shuishan WANG
+// Filtre sobel.
+void Image::sobel3()
+{
+    clone1();
+    clone2();
+    for(int i = 0 ; i < taille_ ; i++)
+    {
 
-//         for(int j = 0 ; j < taille_ ; j++)
-//         {
-//             if(i == 0 || j == 0 || i == taille_ - 1 || j == taille_ - 1)
-//            {
-//                 red_[i][j] = 0;
-//                 blue_[i][j] = 0;
-//                 green_[i][j] = 0;
+        for(int j = 0 ; j < taille_ ; j++)
+        {
+            if(i == 0 || j == 0 || i == taille_ - 1 || j == taille_ - 1)
+           {
+                red_[i][j] = 0;
+                blue_[i][j] = 0;
+                green_[i][j] = 0;
 
-//            }
-//            else
-//            {
-//             red_[i][j] = (red_2[i][j]*0 +red_2[i][j-1]*0 +red_2[i][j+1]*0 +red_2[i-1][j]*2 +red_2[i-1][j+1]*1 +red_2[i-1][j-1]*1 +red_2[i+1][j-1]*-1 +red_2[i+1][j]*-2 +red_2[i+1][j+1]*-1);
-//             green_[i][j] = (green_2[i][j]*0 +green_2[i][j-1]*0 +green_2[i][j+1]*0 +green_2[i-1][j]*2 +green_2[i-1][j+1]*1 +green_2[i-1][j-1]*1 +green_2[i+1][j-1]*-1 +green_2[i+1][j]*-2 +green_2[i+1][j+1]*-1);
-//             blue_[i][j] = (blue_2[i][j]*0 +blue_2[i][j-1]*0 +blue_2[i][j+1]*0 +blue_2[i-1][j]*2 +blue_2[i-1][j+1]*1 +blue_2[i-1][j-1]*1 +blue_2[i+1][j-1]*-1 +blue_2[i+1][j]*-2 +blue_2[i+1][j+1]*-1);
-//             red_[i][j] = red_[i][j]*red_[i][j];
-//             green_[i][j] = green_[i][j]*green_[i][j];
-//             blue_[i][j] = blue_[i][j]*blue_[i][j];
+           }
+           else
+           {
+            red_[i][j] = (red_2[i][j]*0 +red_2[i][j-1]*0 +red_2[i][j+1]*0 +red_2[i-1][j]*2 +red_2[i-1][j+1]*1 +red_2[i-1][j-1]*1 +red_2[i+1][j-1]*-1 +red_2[i+1][j]*-2 +red_2[i+1][j+1]*-1);
+            green_[i][j] = (green_2[i][j]*0 +green_2[i][j-1]*0 +green_2[i][j+1]*0 +green_2[i-1][j]*2 +green_2[i-1][j+1]*1 +green_2[i-1][j-1]*1 +green_2[i+1][j-1]*-1 +green_2[i+1][j]*-2 +green_2[i+1][j+1]*-1);
+            blue_[i][j] = (blue_2[i][j]*0 +blue_2[i][j-1]*0 +blue_2[i][j+1]*0 +blue_2[i-1][j]*2 +blue_2[i-1][j+1]*1 +blue_2[i-1][j-1]*1 +blue_2[i+1][j-1]*-1 +blue_2[i+1][j]*-2 +blue_2[i+1][j+1]*-1);
+            red_[i][j] = red_[i][j]*red_[i][j];
+            green_[i][j] = green_[i][j]*green_[i][j];
+            blue_[i][j] = blue_[i][j]*blue_[i][j];
 
-//              red_1[i][j] = (red_2[i][j]*0 +red_2[i][j-1]*2 +red_2[i][j+1]*-2 +red_2[i-1][j]*0 +red_2[i-1][j+1]*-1 +red_2[i-1][j-1]*1 +red_2[i+1][j-1]*1 +red_2[i+1][j]*0 +red_2[i+1][j+1]*-1);
-//             green_1[i][j] = (green_2[i][j]*0 +green_2[i][j-1]*2 +green_2[i][j+1]*-2 +green_2[i-1][j]*0 +green_2[i-1][j+1]*-1 +green_2[i-1][j-1]*1 +green_2[i+1][j-1]*1 +green_2[i+1][j]*0 +green_2[i+1][j+1]*-1);
-//             blue_1[i][j] = (blue_2[i][j]*0 +blue_2[i][j-1]*2 +blue_2[i][j+1]*-2 +blue_2[i-1][j]*0 +blue_2[i-1][j+1]*-1 +blue_2[i-1][j-1]*1 +blue_2[i+1][j-1]*1 +blue_2[i+1][j]*0 +blue_2[i+1][j+1]*-1);
-//             red_1[i][j] = red_1[i][j]*red_1[i][j];
-//             green_1[i][j] = green_1[i][j]*green_1[i][j];
-//             blue_1[i][j] = blue_1[i][j]*blue_1[i][j];
+             red_1[i][j] = (red_2[i][j]*0 +red_2[i][j-1]*2 +red_2[i][j+1]*-2 +red_2[i-1][j]*0 +red_2[i-1][j+1]*-1 +red_2[i-1][j-1]*1 +red_2[i+1][j-1]*1 +red_2[i+1][j]*0 +red_2[i+1][j+1]*-1);
+            green_1[i][j] = (green_2[i][j]*0 +green_2[i][j-1]*2 +green_2[i][j+1]*-2 +green_2[i-1][j]*0 +green_2[i-1][j+1]*-1 +green_2[i-1][j-1]*1 +green_2[i+1][j-1]*1 +green_2[i+1][j]*0 +green_2[i+1][j+1]*-1);
+            blue_1[i][j] = (blue_2[i][j]*0 +blue_2[i][j-1]*2 +blue_2[i][j+1]*-2 +blue_2[i-1][j]*0 +blue_2[i-1][j+1]*-1 +blue_2[i-1][j-1]*1 +blue_2[i+1][j-1]*1 +blue_2[i+1][j]*0 +blue_2[i+1][j+1]*-1);
+            red_1[i][j] = red_1[i][j]*red_1[i][j];
+            green_1[i][j] = green_1[i][j]*green_1[i][j];
+            blue_1[i][j] = blue_1[i][j]*blue_1[i][j];
 
-//             red_[i][j] = sqrt(red_[i][j] + red_1[i][j]);
-//             green_[i][j] = sqrt(green_[i][j] + green_1[i][j]);
-//             blue_[i][j] = sqrt(blue_[i][j] + blue_1[i][j]);
+            red_[i][j] = sqrt(red_[i][j] + red_1[i][j]);
+            green_[i][j] = sqrt(green_[i][j] + green_1[i][j]);
+            blue_[i][j] = sqrt(blue_[i][j] + blue_1[i][j]);
 
-//             if(red_[i][j] > 255 )red_[i][j] = 255;
-//             if (red_[i][j] < 0)red_[i][j] = 0;
-//             if(green_[i][j] > 255 )green_[i][j] = 255;
-//             if (green_[i][j] < 0)green_[i][j] = 0;
-//             if(blue_[i][j] > 255 )blue_[i][j] = 255;
-//             if (blue_[i][j] < 0)blue_[i][j] = 0;
+            if(red_[i][j] > 255 )red_[i][j] = 255;
+            if (red_[i][j] < 0)red_[i][j] = 0;
+            if(green_[i][j] > 255 )green_[i][j] = 255;
+            if (green_[i][j] < 0)green_[i][j] = 0;
+            if(blue_[i][j] > 255 )blue_[i][j] = 255;
+            if (blue_[i][j] < 0)blue_[i][j] = 0;
 
-//            }
-//         }
-//     }
-// }
+           }
+        }
+    }
+}

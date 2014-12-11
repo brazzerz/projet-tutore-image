@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "manipFichier.h"
+#include "math.h"
 
 class Image{
 private:
@@ -29,7 +30,7 @@ public:
 	void write(string output);
 	void rotation();
 	void flou();
-	void noir();
-	void filtre3();
-	void filtre4();
+	void sobel1();
+	void sobel2();
+	void sobel3();
 };
