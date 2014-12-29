@@ -11,6 +11,7 @@ void Image::write(string output){ // Ecriture du fichier.
     writePicture(red_,green_,blue_,taille_,output);
 }
 
+// Dans le cadre des filtres de Shuishan.
 void Image::clone1(){ // Clone l'image chargé dans un tableau alternatif.
     for (int i = 0; i < taille_; ++i)
     {
@@ -23,6 +24,7 @@ void Image::clone1(){ // Clone l'image chargé dans un tableau alternatif.
     }
 }
 
+// Dans le cadre des filtres de Shuishan.
 void Image::clone2(){ // Clone l'image chargé dans un tableau alternatif.
     for (int i = 0; i < taille_; ++i)
     {
@@ -179,7 +181,7 @@ void Image::melimelo(){
     }
 }
 
-//Réalisé par NGUYEN Duc
+//Réalisé par SALVATO Lucas
 //Rotation à 90°
 void Image::rotation90(){
     //On prend des tableaux pour stocker les valeurs temporaire
@@ -376,3 +378,88 @@ void Image::sobel3()
         }
     }
 }
+
+
+// Réalisé par NGUYEN Duc.
+// Conserve uniquement la couleur rouge.
+void Image::redOnly(){
+    for (int i = 0; i < taille_; ++i)
+    {
+        for (int j = 0; j < taille_; ++j)
+        {
+            green_[i][j] = 0; // On met le tableau de vert à 0.
+            blue_[i][j] = 0; // On met le tableau de bleu à 0.
+        }
+    }
+}
+
+// Réalisé par NGUYEN Duc.
+// Conserve uniquement la couleur verte.
+void Image::greenOnly(){
+    for (int i = 0; i < taille_; ++i)
+    {
+        for (int j = 0; j < taille_; ++j)
+        {
+            red_[i][j] = 0;
+            blue_[i][j] = 0;
+        }
+    }
+}
+
+// Réalisé par NGUYEN Duc.
+// Conserve uniquement la couleur bleu.
+void Image::blueOnly(){
+    for (int i = 0; i < taille_; ++i)
+    {
+        for (int j = 0; j < taille_; ++j)
+        {
+            green_[i][j] = 0;
+            red_[i][j] = 0;
+        }
+    }
+}
+
+// Réalisé par NGUYEN Duc.
+// Détecte la présence de la couleur rouge retourne vrai ou faux.
+bool Image::presRouge(){
+    bool trouve = false;
+    int i=0; int j=0;
+    while(!trouve && i<taille_){ // On vérifie que la couleur n'a pas été trouvé et que le qu'on n'est pas à la fin du tableau.
+        while(!trouve && j<taille_){
+            trouve = (red_[i][j] != 0); // On cherche la présence du rouge.
+        }
+        j=0;
+        i++;
+    }
+    return(trouve); // On retrourne vrai si le rouge est présent et faux si il ne l'ai pas.
+}
+
+void Image::rmRouge(){
+    for (int i = 0; i < taille_; ++i)
+    {
+        for (int j = 0; j < taille_; ++j)
+        {
+            red_[i][j] = 0; // On met le rouge à zéro pour tous les pixels.
+        }
+    }
+}
+
+// Réalisé par NGUYEN Duc.
+// Augmente la luminosité.
+void Image::luminosite(){
+    int seuil;
+    do{
+        cout<<"Seuil (0-255) : ";
+        cin>>seuil;
+    }while(seuil < 0 || seuil > 255); // On vérifie que la valeur entré est entre 0 et 255.
+    for (int i = 0; i < taille_; ++i)
+    {
+        for (int j = 0; j < taille_; ++j)
+        {
+            red_[i][j] = red_[i][j]*seuil; if(red_[i][j]>255) red_[i][j] =255; // On multiplie la couleur par le seuil spécifié.
+            green_[i][j] = green_[i][j]*seuil; if(green_[i][j]>255) green_[i][j] =255;
+            blue_[i][j] = blue_[i][j]*seuil; if(blue_[i][j]>255) blue_[i][j] =255;
+        }
+    }
+}
+// Avec un seuil supérieur à 15 l'image est toute blanche.

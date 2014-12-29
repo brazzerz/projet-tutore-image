@@ -33,4 +33,10 @@ public:
 	void sobel1();
 	void sobel2();
 	void sobel3();
+	void redOnly();
+	void greenOnly();
+	void blueOnly();
+	bool presRouge();
+	void rmRouge();
+	void luminosite();
 };
